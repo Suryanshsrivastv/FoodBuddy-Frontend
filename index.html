@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Buddy - Restaurant Suggestions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h2>🍽️ Food Buddy</h2>
+                </div>
+                <div class="nav-links">
+                    <button id="homeBtn" class="nav-btn active">Home</button>
+                    <button id="loginBtn" class="nav-btn">Login</button>
+                    <button id="registerBtn" class="nav-btn">Register</button>
+                    <button id="profileBtn" class="nav-btn hidden">Profile</button>
+                    <button id="feedBtn" class="nav-btn hidden">My Feed</button>
+                    <button id="logoutBtn" class="nav-btn hidden">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Container -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <div id="homePage" class="page active">
+                <div class="hero-section">
+                    <h1>Find Your Perfect Dining Experience</h1>
+                    <p>Discover amazing restaurants tailored to your taste</p>
+                </div>
+
+                <div class="search-section">
+                    <div class="search-container">
+                        <h2>Quick Search</h2>
+                        <div class="search-input-container">
+                            <input type="text" id="quickSearchInput" placeholder="e.g., 'a cheap romantic place with parking'">
+                            <button id="quickSearchBtn">Search</button>
+                        </div>
+                    </div>
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <div class="questionnaire-container">
+                        <h2>Find Restaurants</h2>
+                        <form id="guestQuestionnaire" class="questionnaire-form">
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" name="location" placeholder="Enter city or area">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cuisines">Preferred Cuisines</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="cuisines" value="italian"> Italian</label>
+                                    <label><input type="checkbox" name="cuisines" value="chinese"> Chinese</label>
+                                    <label><input type="checkbox" name="cuisines" value="indian"> Indian</label>
+                                    <label><input type="checkbox" name="cuisines" value="south_indian"> South Indian</label>
+                                    <label><input type="checkbox" name="cuisines" value="mexican"> Mexican</label>
+                                    <label><input type="checkbox" name="cuisines" value="american"> American</label>
+                                    <label><input type="checkbox" name="cuisines" value="thai"> Thai</label>
+                                    <label><input type="checkbox" name="cuisines" value="japanese"> Japanese</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dietaryOptions">Dietary Preferences</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="dietaryOptions" value="vegetarian"> Vegetarian</label>
+                                    <label><input type="checkbox" name="dietaryOptions" value="vegan"> Vegan</label>
+                                    <label><input type="checkbox" name="dietaryOptions" value="gluten_free"> Gluten Free</label>
+                                    <label><input type="checkbox" name="dietaryOptions" value="halal"> Halal</label>
+                                    <label><input type="checkbox" name="dietaryOptions" value="kosher"> Kosher</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="occasionTags">Occasion</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="occasionTags" value="date_night"> Date Night</label>
+                                    <label><input type="checkbox" name="occasionTags" value="family_dinner"> Family Dinner</label>
+                                    <label><input type="checkbox" name="occasionTags" value="business_lunch"> Business Lunch</label>
+                                    <label><input type="checkbox" name="occasionTags" value="celebration"> Celebration</label>
+                                    <label><input type="checkbox" name="occasionTags" value="casual"> Casual</label>
+                                    <label><input type="checkbox" name="occasionTags" value="quick_bite"> Quick Bite</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maxPrice">Budget (Max Price)</label>
+                                <input type="number" id="maxPrice" name="maxPrice" placeholder="e.g., 1500" min="0">
+                            </div>
+
+                            <button type="submit" class="primary-btn">Find Restaurants</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Page -->
+            <div id="loginPage" class="page">
+                <div class="auth-container">
+                    <h2>Login</h2>
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="primary-btn">Login</button>
+                    </form>
+                    <p>Don't have an account? <button id="switchToRegister" class="link-btn">Register here</button></p>
+                </div>
+            </div>
+
+            <!-- Register Page -->
+            <div id="registerPage" class="page">
+                <div class="auth-container">
+                    <h2>Register</h2>
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="registerUsername">Username</label>
+                            <input type="text" id="registerUsername" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="primary-btn">Register</button>
+                    </form>
+                    <p>Already have an account? <button id="switchToLogin" class="link-btn">Login here</button></p>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profilePage" class="page">
+                <div class="profile-container">
+                    <h2>My Profile</h2>
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="profileUsername" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="profileEmail" readonly>
+                        </div>
+                        
+                        <h3>Preferences</h3>
+                        
+                        <div class="form-group">
+                            <label for="favoriteCuisines">Favorite Cuisines</label>
+                            <div class="checkbox-group" id="favoriteCuisinesGroup">
+                                <label><input type="checkbox" name="favoriteCuisines" value="italian"> Italian</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="chinese"> Chinese</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="indian"> Indian</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="south_indian"> South Indian</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="mexican"> Mexican</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="american"> American</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="thai"> Thai</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="japanese"> Japanese</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dietaryRestrictions">Dietary Restrictions</label>
+                            <div class="checkbox-group" id="dietaryRestrictionsGroup">
+                                <label><input type="checkbox" name="dietaryRestrictions" value="vegetarian"> Vegetarian</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="vegan"> Vegan</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="gluten_free"> Gluten Free</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="halal"> Halal</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="kosher"> Kosher</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="defaultBudget">Default Budget</label>
+                            <input type="number" id="defaultBudget" name="defaultBudget" placeholder="e.g., 1500" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="preferredLocation">Preferred Location</label>
+                            <input type="text" id="preferredLocation" name="preferredLocation" placeholder="Enter city or area">
+                        </div>
+
+                        <button type="submit" class="primary-btn">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Feed Page -->
+            <div id="feedPage" class="page">
+                <div class="feed-container">
+                    <h2>My Personal Feed</h2>
+                    <p class="feed-description">Restaurants recommended just for you based on your preferences</p>
+                    <div id="feedResults" class="results-container">
+                        <!-- Feed results will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Container (for search results) -->
+            <div id="searchResults" class="results-container hidden">
+                <h2>Restaurant Suggestions</h2>
+                <div id="resultsContent">
+                    <!-- Search results will be populated here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner hidden">
+            <div class="spinner"></div>
+            <p>Finding the perfect restaurants for you...</p>
+        </div>
+
+        <!-- Toast Messages -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
