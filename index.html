@@ -52,7 +52,7 @@
                         <form id="guestQuestionnaire" class="questionnaire-form">
                             <div class="form-group">
                                 <label for="location">Location</label>
-                                <input type="text" id="location" name="location" placeholder="Enter city or area">
+                                <input type="text" id="location" name="city" placeholder="Enter city or area">
                             </div>
 
                             <div class="form-group">
@@ -97,6 +97,14 @@
                                 <input type="number" id="maxPrice" name="maxPrice" placeholder="e.g., 1500" min="0">
                             </div>
 
+                            <div class="form-group">
+                                <div class="range-group">
+                                    <label for="distanceRange">Distance (in km)</label>
+                                    <span id="distanceValue">5 km</span>
+                                </div>
+                                <input type="range" id="distanceRange" name="maxDistanceKm" min="1" max="25" step="1" value="5">
+                            </div>
+
                             <button type="submit" class="primary-btn">Find Restaurants</button>
                         </form>
                     </div>
@@ -127,6 +135,7 @@
                 <div class="auth-container">
                     <h2>Register</h2>
                     <form id="registerForm" class="auth-form">
+                        <h3>Account Information</h3>
                         <div class="form-group">
                             <label for="registerUsername">Username</label>
                             <input type="text" id="registerUsername" name="username" required>
@@ -139,6 +148,43 @@
                             <label for="registerPassword">Password</label>
                             <input type="password" id="registerPassword" name="password" required>
                         </div>
+
+                        <h3>Preferences</h3>
+                        <div class="form-group">
+                            <label for="registerFavoriteCuisines">Favorite Cuisines</label>
+                            <div class="checkbox-group" id="registerFavoriteCuisines">
+                                <label><input type="checkbox" name="favoriteCuisines" value="italian"> Italian</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="chinese"> Chinese</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="indian"> Indian</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="south_indian"> South Indian</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="mexican"> Mexican</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="american"> American</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="thai"> Thai</label>
+                                <label><input type="checkbox" name="favoriteCuisines" value="japanese"> Japanese</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerDietaryRestrictions">Dietary Restrictions</label>
+                            <div class="checkbox-group" id="registerDietaryRestrictions">
+                                <label><input type="checkbox" name="dietaryRestrictions" value="vegetarian"> Vegetarian</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="vegan"> Vegan</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="gluten_free"> Gluten Free</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="halal"> Halal</label>
+                                <label><input type="checkbox" name="dietaryRestrictions" value="kosher"> Kosher</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerDefaultBudget">Default Budget (per person)</label>
+                            <input type="number" id="registerDefaultBudget" name="defaultBudget" placeholder="e.g., 1500" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerHomeAddress">Home Location</label>
+                            <input type="text" id="registerHomeAddress" name="homeAddress" placeholder="Enter city or area">
+                        </div>
+
                         <button type="submit" class="primary-btn">Register</button>
                     </form>
                     <p>Already have an account? <button id="switchToLogin" class="link-btn">Login here</button></p>
@@ -192,8 +238,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="preferredLocation">Preferred Location</label>
-                            <input type="text" id="preferredLocation" name="preferredLocation" placeholder="Enter city or area">
+                            <label for="homeAddress">Preferred Location</label>
+                            <input type="text" id="homeAddress" name="homeAddress" placeholder="Enter city or area">
                         </div>
 
                         <button type="submit" class="primary-btn">Update Profile</button>
@@ -232,5 +278,47 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get location fields from both forms
+    const locationInput = document.getElementById('location');
+    const registerLocationInput = document.getElementById('registerHomeAddress');
+
+    // Skip if both fields are already filled
+    if ((locationInput && locationInput.value) && 
+        (registerLocationInput && registerLocationInput.value)) return;
+
+    // Ask for geolocation
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            // Use Nominatim for reverse geocoding
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+                .then(res => res.json())
+                .then(data => {
+                    // Try to get city, town, or village
+                    const city = data.address.city || data.address.town || data.address.village || '';
+                    if (city) {
+                        // Update search location input if it exists
+                        if (locationInput) {
+                            locationInput.value = city;
+                        }
+                        
+                        // Update registration form location input if it exists
+                        if (registerLocationInput) {
+                            registerLocationInput.value = city;
+                        }
+                        
+                        // Save to localStorage for later use
+                        localStorage.setItem('detectedCity', city);
+                    }
+                })
+                .catch(() => {});
+        });
+    }
+});
+</script>
 </body>
 </html>
