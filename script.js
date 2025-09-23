@@ -1,5 +1,5 @@
 // Configuration
-const API_BASE_URL = 'https://foodbuddy-v1-mz47.onrender.com/api';
+const API_BASE_URL = 'https://foodbuddy-ggyv.onrender.com/api';
 let city = null;
 // State management
 let currentUser = null;
